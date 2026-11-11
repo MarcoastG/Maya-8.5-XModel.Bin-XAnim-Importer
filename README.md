@@ -1,12 +1,98 @@
-Call of Duty: Black Ops III XModel & XAnim Importer for Maya 8.5A native Python OpenMaya plugin for Autodesk Maya 8.5 (32-bit) to import Call of Duty: Black Ops III .xmodel_bin, .xmodel_export, .xanim_bin, and .xanim_export assets directly into your scene.   Built specifically to work within strict Python 2.4 constraints while delivering modern features like integrated LZ4 decompression, rainbow skeleton hierarchies, vertex skin weight binding, and world-space animation keyframing.   FeaturesPure Python 2.4 LZ4 Decompressor: Unpacks compressed .xmodel_bin and .xanim_bin streams on the fly without external compiled C/C++ DLLs or newer Python standard libraries.Format Flexibility: Auto-detects and loads both binary formats (.xmodel_bin, .xanim_bin) and ASCII export formats (.xmodel_export, .xanim_export).Full Mesh & Skin Cluster Generation:Reconstructs geometry, vertex normals, and UV layouts using OpenMaya.MFnMesh.   Multi-material mesh partitioning mapped to individual shading groups.   Automatically binds skinned meshes to joints via skinCluster with full vertex weights.   Rainbow Skeleton Colorization: Joint hierarchies are color-coded across Maya drawing overrides for quick visual identification and bone navigation.Smart Texture Resolver: Scans adjacent folders (textures/, Textures/, images/, etc.) to automatically link albedo/diffuse color maps directly to Lambert shaders.Synced World-Space XAnim Keyframing:Automatically matches target joints regardless of namespace or naming variations.   Evaluates time synchronization across playback rates (24, 25, 30, 60 FPS) and applies world-space matrix keyframes across translate and rotate tracks.   Seamless Maya Integration:Registers as a native Maya File Translator under File -> Import....   Adds a dedicated top-bar menu (BO3 Tools) and custom MEL/Python commands.   CompatibilityTarget Software: Autodesk Maya 8.5 (32-bit)Target Runtime: Maya embedded Python 2.4Supported File Types:.xmodel_bin / .xmodel_export   .xanim_bin / .xanim_export   InstallationCopy bo3_xmodel_bin_importer.py to your Maya 8.5 plug-ins directory:   PlaintextC:\Program Files (x86)\Autodesk\Maya8.5\bin\plug-ins\
-(Alternatively, place it in your user script/plug-in directory: %USERPROFILE%\Documents\maya\8.5\plug-ins\)Open Maya 8.5.Open the Plug-in Manager via Window -> Settings/Preferences -> Plug-in Manager.Locate bo3_xmodel_bin_importer.py, check Loaded, and check Auto load.The BO3 Tools dropdown menu will appear in the main menu bar.   Usage1. Via Maya Main MenuUse the custom top menu added upon plugin initialization:   BO3 Tools -> Import BO3 XModel (.xmodel_bin / .xmodel_export)...   BO3 Tools -> Import BO3 XAnim (.xanim_bin / .xanim_export)...   2. Via Standard File ImportGo to File -> Import..., open the file format dropdown, and choose BO3_XModel_Bin. Select your model or animation file.   3. Via Command Line / MEL ScriptYou can execute imports directly through MEL or Python:MEL:Maya Embedded Language// Open file browser dialogs:
+Call of Duty: Black Ops III XModel & XAnim Importer for Maya 8.5
+
+A native Python OpenMaya plugin for Autodesk Maya 8.5 (32-bit) to import Call of Duty: Black Ops III .xmodel_bin, .xmodel_export, .xanim_bin, and .xanim_export assets directly into your scene.
+
+Built specifically to work within strict Python 2.4 constraints while delivering modern features like integrated LZ4 decompression, rainbow skeleton hierarchies, vertex skin weight binding, and world-space animation keyframing.
+
+Features
+
+Pure Python 2.4 LZ4 Decompressor: Unpacks compressed .xmodel_bin and .xanim_bin streams on the fly without external compiled C/C++ DLLs or newer Python standard libraries.
+
+Format Flexibility: Auto-detects and loads both binary formats (.xmodel_bin, .xanim_bin) and ASCII export formats (.xmodel_export, .xanim_export).
+
+Full Mesh & Skin Cluster Generation:
+
+Reconstructs geometry, vertex normals, and UV layouts using OpenMaya.MFnMesh.
+
+Multi-material mesh partitioning mapped to individual shading groups.
+
+Automatically binds skinned meshes to joints via skinCluster with full vertex weights.
+
+Rainbow Skeleton Colorization: Joint hierarchies are color-coded across Maya drawing overrides for quick visual identification and bone navigation.
+
+Smart Texture Resolver: Scans adjacent folders (textures/, Textures/, images/, etc.) to automatically link albedo/diffuse color maps directly to Lambert shaders.
+
+Synced World-Space XAnim Keyframing:
+
+Automatically matches target joints regardless of namespace or naming variations.
+
+Evaluates time synchronization across playback rates (24, 25, 30, 60 FPS) and applies world-space matrix keyframes across translate and rotate tracks.
+
+Seamless Maya Integration:
+
+Registers as a native Maya File Translator under File -> Import....
+
+Adds a dedicated top-bar menu (BO3 Tools) and custom MEL/Python commands.
+
+Compatibility
+
+Target Software: Autodesk Maya 8.5 (32-bit)
+
+Target Runtime: Maya embedded Python 2.4
+
+Supported File Types:
+
+.xmodel_bin / .xmodel_export
+
+.xanim_bin / .xanim_export
+
+Installation
+
+Copy bo3_xmodel_bin_importer.py to your Maya 8.5 plug-ins directory:
+
+C:\Program Files (x86)\Autodesk\Maya8.5\bin\plug-ins\
+
+
+(Alternatively, place it in your user plug-in directory: %USERPROFILE%\Documents\maya\8.5\plug-ins\)
+
+Open Maya 8.5.
+
+Open the Plug-in Manager via Window -> Settings/Preferences -> Plug-in Manager.
+
+Locate bo3_xmodel_bin_importer.py, check Loaded, and check Auto load.
+
+The BO3 Tools dropdown menu will appear in the main menu bar.
+
+Usage
+
+1. Via Maya Main Menu
+
+Use the custom top menu added upon plugin initialization:
+
+BO3 Tools -> Import BO3 XModel (.xmodel_bin / .xmodel_export)...
+
+BO3 Tools -> Import BO3 XAnim (.xanim_bin / .xanim_export)...
+
+2. Via Standard File Import
+
+Go to File -> Import..., set the file format dropdown to BO3_XModel_Bin, and select your model or animation file.
+
+3. Via Command Line / Scripting
+
+MEL
+
+// Open file browser dialogs:
 bo3ImportXModel;
 bo3ImportXAnim;
 
 // Direct file path import:
 bo3ImportXModel "C:/path/to/my_model.xmodel_bin";
 bo3ImportXAnim "C:/path/to/my_animation.xanim_bin";
-Python:Pythonimport maya.cmds as cmds
+
+
+Python
+
+import maya.cmds as cmds
 
 # Open file browser:
 cmds.bo3ImportXModel()
@@ -15,4 +101,10 @@ cmds.bo3ImportXAnim()
 # Direct import:
 cmds.bo3ImportXModel("C:/path/to/my_model.xmodel_bin")
 cmds.bo3ImportXAnim("C:/path/to/my_animation.xanim_bin")
-Recommended WorkflowImport the Base XModel: Always import the base .xmodel_bin or .xmodel_export first so the joint skeleton and mesh are instantiated in the scene.   Import Animation: With the skeleton in the scene, run the animation importer on your target .xanim_bin or .xanim_export. The plugin will automatically match joint names, configure scene frame ranges/FPS, and apply world-space keyframes.   
+
+
+Recommended Workflow
+
+Import the Base XModel: Always import the base .xmodel_bin or .xmodel_export first so the joint skeleton and mesh hierarchy are instantiated in the scene.
+
+Import Animation: With the skeleton in the scene, run the animation importer on your target .xanim_bin or .xanim_export. The plugin will automatically match joint names, configure scene frame ranges and FPS, and apply world-space keyframes.
